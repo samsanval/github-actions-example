@@ -20,12 +20,6 @@ jobs:
       - name: Install dependencies
         run: make install-dependencies
 
-      - name: Create database
-        run: make start-database
-
-      - name: Run migrations
-        run: make migrate
-
       - name: Run Tests
         run: make run-tests
 
