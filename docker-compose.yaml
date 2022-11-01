@@ -13,7 +13,7 @@ services:
       - php
     links:
       - php
-      - mariadb_main
+      - mysql
 
   php:
     container_name: php
@@ -25,19 +25,20 @@ services:
       - ./docker/php/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     links:
-      - mariadb_main
+      - mysql
 
-  mariadb_main:
-    image: bitnami/mariadb
-    container_name: mariadb
-    restart: always
-    environment:
-      MARIADB_ROOT_PASSWORD: toor
-      MYSQL_ROOT_PASSWORD: toor
-      MARIADB_REPLICATION_MODE: master
-      MARIADB_REPLICATION_USER: replicante
-      MARIADB_REPLICATION_PASSWORD: toor
-    volumes:
-      - ${PWD}/docker/mariadb/db_data:/bitnami/mariadb
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    tty: true
     ports:
       - "3306:3306"
+    volumes:
+      - ${PWD}/docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: symfony-api-db
+      MYSQL_USER: samuel
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
