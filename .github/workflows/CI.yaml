@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+   branches:
+     - feature/**
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  Run-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Start containers
+        run: make build
+
+      - name: Install dependencies
+        run: make install-dependencies
+
+      - name: Create database
+        run: make start-database
+
+      - name: Run migrations
+        run: make migrate
+
+      - name: Run Tests
+        run: make run-tests
+
+      - name: Stop Containers
+        run: make down
