@@ -1,5 +1,4 @@
 .idea
 api/vendor
 api/var
-api/.env
 docker/mariadb
