@@ -11,7 +11,6 @@ final class BookIdTest extends TestCase
     /** @test */
     public function itShouldThrowAnException()
     {
-        $this->expectException(InvalidArgumentException::class);
         BookIdMother::create('Hola');
     }
 
